@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EuroGarnet | Endüstriyel Hammaddeler</title>
+    <title>EuroGarnet | Global Endüstriyel Çözümler</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <!-- Font Awesome 6 (ücretsiz ikonlar) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ----------------------------------------------
-            RESET & DEĞİŞKENLER
+           RESET & DEĞİŞKENLER
         ------------------------------------------------ */
         * {
             margin: 0;
@@ -21,207 +21,288 @@
         }
 
         :root {
-            --primary: #003153;       /* koyu lacivert */
-            --primary-light: #1a4b7a;
-            --accent: #c9a84c;        /* altın sarısı vurgu */
-            --gray-bg: #f8fafc;
-            --gray-text: #334155;
+            --primary: #0a1a2b;       /* Çok koyu lacivert / holding rengi */
+            --primary-light: #1b3b5c;
+            --accent: #c9a84c;        /* Altın vurgu */
             --white: #ffffff;
-            --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
-            --radius: 16px;
-            --transition: 0.25s ease;
+            --shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.3);
+            --radius: 12px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--gray-bg);
-            color: var(--gray-text);
+            background-color: #f4f6f9;
+            color: #1e293b;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 32px;
         }
 
         /* ----------------------------------------------
-            HEADER / NAVBAR
+           HEADER (Şeffaf + Sabit)
         ------------------------------------------------ */
         header {
-            background: var(--white);
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            backdrop-filter: blur(4px);
-            background: rgba(255, 255, 255, 0.92);
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: background var(--transition);
+            background: transparent;
+        }
+
+        /* Scroll'da beyazlaşma efekti (ister ekle ister çıkar) */
+        header.scrolled {
+            background: rgba(10, 26, 43, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
             flex-wrap: wrap;
         }
 
         .logo {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--white);
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .logo i {
             color: var(--accent);
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 36px;
             list-style: none;
-            font-weight: 500;
+            font-weight: 600;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: var(--gray-text);
+            color: rgba(255, 255, 255, 0.85);
             transition: color var(--transition);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a i {
-            margin-right: 6px;
             color: var(--accent);
         }
 
-        .btn-primary {
-            background: var(--primary);
-            color: var(--white) !important;
-            padding: 10px 24px;
+        .btn-nav {
+            background: var(--accent);
+            color: var(--primary) !important;
+            padding: 10px 28px;
             border-radius: 40px;
-            font-weight: 600;
-            transition: background var(--transition), transform var(--transition);
-            display: inline-block;
+            font-weight: 700;
+            transition: all var(--transition);
             border: none;
             cursor: pointer;
-            font-size: 0.95rem;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-
-        .btn-primary i {
-            margin-right: 8px;
-        }
-
-        /* ----------------------------------------------
-            HERO
-        ------------------------------------------------ */
-        .hero {
-            padding: 70px 0 60px;
-            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            line-height: 1.2;
-            letter-spacing: -1px;
-        }
-
-        .hero h1 span {
-            color: var(--accent);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #475569;
-            margin: 20px 0 32px;
-            max-width: 480px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 48px;
-            margin-top: 24px;
-        }
-
-        .hero-stats div {
-            text-align: left;
-        }
-
-        .hero-stats .number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: block;
-        }
-
-        .hero-stats .label {
             font-size: 0.9rem;
-            color: #64748b;
-            font-weight: 500;
         }
 
-        .hero-image {
-            background: var(--primary);
-            border-radius: var(--radius);
-            height: 280px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 4rem;
-            opacity: 0.9;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23c9a84c" opacity="0.1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 120px;
-            box-shadow: var(--shadow);
+        .btn-nav:hover {
+            background: #dbb95c;
+            transform: scale(1.03);
+            color: var(--primary) !important;
         }
 
         /* ----------------------------------------------
-            BÖLÜM: NEDEN EUROGARNET
+           HERO SLIDER (Tam ekran geçişli)
+        ------------------------------------------------ */
+        .hero-slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            min-height: 700px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            animation: crossfade 27s infinite;
+            transform: scale(1.02);
+            transition: transform 8s ease;
+        }
+
+        /* 3 Görsel - Telifsiz Unsplash Endüstri Görselleri */
+        .slide:nth-child(1) {
+            background-image: url('https://images.unsplash.com/photo-1571554039420-31b5f53d2e78?w=1600&q=80');
+            animation-delay: 0s;
+        }
+        .slide:nth-child(2) {
+            background-image: url('https://images.unsplash.com/photo-1521662516207-d95a5dee7483?w=1600&q=80');
+            animation-delay: 9s;
+        }
+        .slide:nth-child(3) {
+            background-image: url('https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=1600&q=80');
+            animation-delay: 18s;
+        }
+
+        @keyframes crossfade {
+            0% { opacity: 0; transform: scale(1.02); }
+            8% { opacity: 1; transform: scale(1); }
+            33% { opacity: 1; transform: scale(1); }
+            41% { opacity: 0; transform: scale(1.02); }
+            100% { opacity: 0; transform: scale(1.02); }
+        }
+
+        /* Slayt üzerindeki koyu katman (metin okunurluğu) */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(10, 26, 43, 0.75) 0%, rgba(10, 26, 43, 0.25) 100%);
+            z-index: 2;
+        }
+
+        /* Hero içerik */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 80px;
+            max-width: 750px;
+        }
+
+        .hero-content .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            padding: 6px 18px;
+            border-radius: 40px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 {
+            font-size: 4.2rem;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-content h1 span {
+            color: var(--accent);
+            border-bottom: 4px solid var(--accent);
+            padding-bottom: 4px;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.85);
+            max-width: 540px;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero-primary {
+            background: var(--accent);
+            color: var(--primary);
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-hero-primary:hover {
+            background: #dbb95c;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(201, 168, 76, 0.4);
+        }
+
+        .btn-hero-secondary {
+            background: transparent;
+            color: var(--white);
+            padding: 16px 36px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* ----------------------------------------------
+           ANA BÖLÜMLER (Holding Havası)
         ------------------------------------------------ */
         .section {
-            padding: 70px 0;
+            padding: 100px 0;
         }
 
         .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.8rem;
+            font-weight: 800;
             color: var(--primary);
-            text-align: center;
             margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .section-title span {
+            color: var(--accent);
         }
 
         .section-sub {
-            text-align: center;
             font-size: 1.1rem;
             color: #64748b;
             max-width: 640px;
-            margin: 0 auto 48px;
+            margin-bottom: 56px;
         }
 
         .grid-3 {
@@ -232,355 +313,397 @@
 
         .card {
             background: var(--white);
-            padding: 36px 28px;
+            padding: 40px 32px;
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: transform var(--transition), box-shadow var(--transition);
-            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+            transition: all var(--transition);
             border: 1px solid rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity var(--transition);
+        }
+
+        .card:hover::after {
+            opacity: 1;
         }
 
         .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
         }
 
         .card i {
-            font-size: 2.6rem;
+            font-size: 2.8rem;
             color: var(--accent);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .card h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .card p {
-            color: #64748b;
+            color: #475569;
             font-size: 0.95rem;
         }
 
         /* ----------------------------------------------
-            ÜRÜN YELPAZESİ
+           ENDÜSTRİYEL ALANLAR (Grid)
         ------------------------------------------------ */
-        .product-grid {
+        .industry-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
         }
 
-        .product-card {
+        .industry-item {
             background: var(--white);
+            padding: 28px 20px;
+            text-align: center;
             border-radius: var(--radius);
-            padding: 32px 24px;
-            box-shadow: var(--shadow);
-            border-left: 6px solid var(--accent);
-            transition: transform var(--transition);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border-bottom: 4px solid transparent;
+            transition: all var(--transition);
+            cursor: default;
         }
 
-        .product-card:hover {
-            transform: translateY(-4px);
+        .industry-item:hover {
+            border-bottom-color: var(--accent);
+            transform: scale(1.02);
         }
 
-        .product-card h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
+        .industry-item i {
+            font-size: 2.2rem;
             color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .product-card .tag {
-            display: inline-block;
-            background: #eef2ff;
-            color: var(--primary);
-            font-size: 0.75rem;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
+            opacity: 0.7;
             margin-bottom: 12px;
         }
 
-        .product-card ul {
-            list-style: none;
-            margin-top: 12px;
-        }
-
-        .product-card ul li {
-            font-size: 0.92rem;
-            padding: 4px 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #334155;
-        }
-
-        .product-card ul li i {
-            color: var(--accent);
-            font-size: 0.8rem;
-            width: 18px;
+        .industry-item h4 {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1rem;
         }
 
         /* ----------------------------------------------
-            İLETİŞİM
+           İLETİŞİM / CTA BANNER
         ------------------------------------------------ */
-        .contact-section {
+        .cta-banner {
             background: var(--primary);
-            color: var(--white);
             border-radius: var(--radius);
-            padding: 60px 48px;
-            margin: 20px auto 60px;
+            padding: 64px 56px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 32px;
+            gap: 40px;
+            margin: 40px auto 80px;
         }
 
-        .contact-section h2 {
+        .cta-banner h2 {
+            color: var(--white);
             font-size: 2rem;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .contact-section p {
-            opacity: 0.8;
+        .cta-banner p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
             margin-top: 4px;
         }
 
-        .contact-info {
+        .cta-contact {
             display: flex;
-            gap: 48px;
+            gap: 40px;
             flex-wrap: wrap;
         }
 
-        .contact-info div {
+        .cta-contact div {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            color: var(--white);
         }
 
-        .contact-info i {
-            font-size: 1.4rem;
+        .cta-contact i {
+            color: var(--accent);
+            font-size: 1.6rem;
+        }
+
+        .cta-contact a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: color var(--transition);
+        }
+
+        .cta-contact a:hover {
             color: var(--accent);
         }
 
-        .contact-info a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 1px solid transparent;
-            transition: border-color var(--transition);
-        }
-
-        .contact-info a:hover {
-            border-bottom-color: var(--accent);
-        }
-
         /* ----------------------------------------------
-            FOOTER
+           FOOTER
         ------------------------------------------------ */
         footer {
             text-align: center;
-            padding: 32px 0 24px;
-            border-top: 1px solid #e9edf2;
+            padding: 40px 0 32px;
+            border-top: 1px solid #e2e8f0;
             color: #94a3b8;
             font-size: 0.9rem;
         }
 
         footer span {
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
+        }
+
+        footer .socials {
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        footer .socials a {
+            color: #94a3b8;
+            font-size: 1.2rem;
+            transition: color var(--transition);
+        }
+
+        footer .socials a:hover {
+            color: var(--accent);
         }
 
         /* ----------------------------------------------
-            RESPONSIVE
+           RESPONSIVE
         ------------------------------------------------ */
         @media (max-width: 992px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
+            .hero-content h1 {
+                font-size: 3rem;
             }
-            .hero p {
-                margin-left: auto;
-                margin-right: auto;
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
             }
-            .hero-stats {
-                justify-content: center;
-            }
-            .grid-3,
-            .product-grid {
+            .industry-grid {
                 grid-template-columns: 1fr 1fr;
             }
         }
 
-        @media (max-width: 700px) {
+        @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
-                gap: 16px;
+                gap: 12px;
+                align-items: center;
             }
             .nav-links {
+                gap: 16px;
                 flex-wrap: wrap;
                 justify-content: center;
-                gap: 16px 24px;
             }
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2.4rem;
             }
-            .grid-3,
-            .product-grid {
+            .hero-content {
+                align-items: center;
+                text-align: center;
+                padding-top: 120px;
+            }
+            .hero-content p {
+                max-width: 100%;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .grid-3 {
                 grid-template-columns: 1fr;
             }
-            .contact-section {
+            .industry-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .cta-banner {
                 flex-direction: column;
                 text-align: center;
                 padding: 40px 24px;
             }
-            .contact-info {
+            .cta-contact {
                 justify-content: center;
                 gap: 24px;
             }
-            .hero-stats {
-                flex-wrap: wrap;
-                gap: 24px;
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .industry-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            .btn-hero-primary, .btn-hero-secondary {
+                padding: 14px 24px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
     <!-- ========== HEADER ========== -->
-    <header>
+    <header id="header">
         <div class="container navbar">
             <div class="logo">
                 <i class="fas fa-gem"></i> EuroGarnet
             </div>
             <ul class="nav-links">
-                <li><a href="#neden"><i class="fas fa-check-circle"></i> Neden Biz?</a></li>
-                <li><a href="#urunler"><i class="fas fa-boxes"></i> Ürünler</a></li>
+                <li><a href="#kurumsal"><i class="fas fa-building"></i> Kurumsal</a></li>
+                <li><a href="#cozumler"><i class="fas fa-microchip"></i> Çözümler</a></li>
                 <li><a href="#iletisim"><i class="fas fa-envelope"></i> İletişim</a></li>
+                <li><a href="#iletisim" class="btn-nav"><i class="fas fa-phone-alt"></i> Teklif Al</a></li>
             </ul>
-            <a href="#iletisim" class="btn-primary"><i class="fas fa-phone-alt"></i> Teklif Al</a>
         </div>
     </header>
 
-    <!-- ========== HERO ========== -->
-    <section class="hero">
-        <div class="container hero-grid">
-            <div>
-                <h1>Yüksek Kaliteli <br /><span>Endüstriyel Hammaddeler</span></h1>
-                <p>
-                    EuroGarnet olarak, endüstriyel kumlama, kesme ve yüzey hazırlığı için 
-                    yüksek kaliteli ve çevre dostu hammaddeler sunuyoruz. Sektördeki lider 
-                    firmaların güvenilir iş ortağıyız.
-                </p>
-                <div class="hero-stats">
-                    <div>
-                        <span class="number">12+</span>
-                        <span class="label">Yıllık Deneyim</span>
-                    </div>
-                    <div>
-                        <span class="number">30+</span>
-                        <span class="label">Kıtada Hizmet</span>
-                    </div>
-                    <div>
-                        <span class="number">98%</span>
-                        <span class="label">Müşteri Memnuniyeti</span>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-image">
-                <i class="fas fa-industry" style="font-size: 5rem; opacity: 0.3;"></i>
+    <!-- ========== HERO SLIDER ========== -->
+    <section class="hero-slider">
+        <!-- 3 Slayt Görseli -->
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+
+        <!-- Siyah katman -->
+        <div class="hero-overlay"></div>
+
+        <!-- İçerik -->
+        <div class="container hero-content">
+            <span class="badge"><i class="fas fa-globe"></i> Global Endüstriyel Güç</span>
+            <h1>
+                Endüstrinin <br /><span>Geleceğine</span> Yön Veriyoruz
+            </h1>
+            <p>
+                Rafinerilerden havacılığa, ağır makinadan cam teknolojilerine; 
+                yüksek kaliteli hammaddeler ve mühendislik çözümleriyle 
+                dünya çapında 30'dan fazla ülkede hizmetinizdeyiz.
+            </p>
+            <div class="hero-buttons">
+                <a href="#iletisim" class="btn-hero-primary">
+                    <i class="fas fa-handshake"></i> İş Ortağımız Olun
+                </a>
+                <a href="#cozumler" class="btn-hero-secondary">
+                    <i class="fas fa-arrow-right"></i> Çözümleri Keşfet
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- ========== NEDEN EUROGARNET ========== -->
-    <section class="section" id="neden">
+    <!-- ========== KURUMSAL (NEDEN BİZ) ========== -->
+    <section class="section" id="kurumsal">
         <div class="container">
-            <h2 class="section-title">Neden EuroGarnet?</h2>
+            <h2 class="section-title">Neden <span>EuroGarnet</span>?</h2>
             <p class="section-sub">
-                Kurumsal güvenilirliğimiz, uluslararası referanslarımız ve 
-                müşteri odaklı yaklaşımımızla sektörde fark yaratıyoruz.
+                On yılı aşkın küresel deneyimimiz, AR-GE odaklı yaklaşımımız ve 
+                sürdürülebilirlik vizyonumuzla sektörün güvenilir çözüm ortağıyız.
             </p>
             <div class="grid-3">
                 <div class="card">
-                    <i class="fas fa-certificate"></i>
-                    <h3>Yüksek Kalite Standartları</h3>
-                    <p>Uluslararası sertifikalı, yüksek performanslı ve güvenilir hammaddeler.</p>
+                    <i class="fas fa-flask"></i>
+                    <h3>İleri Teknoloji & AR-GE</h3>
+                    <p>Yüzey işleme ve kumlama teknolojilerinde sürekli gelişim, uluslararası patentli çözümler.</p>
                 </div>
                 <div class="card">
                     <i class="fas fa-handshake"></i>
-                    <h3>Müşteri Odaklı Yaklaşım</h3>
-                    <p>İhtiyaçlarınıza özel çözümler ve uzun vadeli iş ortaklığı.</p>
+                    <h3>Küresel İş Ortaklığı</h3>
+                    <p>Fortune 500 şirketleriyle çalışma deneyimi, proje bazlı özel mühendislik desteği.</p>
                 </div>
                 <div class="card">
-                    <i class="fas fa-truck-fast"></i>
-                    <h3>Güçlü Lojistik &amp; Hızlı Teslimat</h3>
-                    <p>Türkiye, Avrupa ve Orta Doğu'yu kapsayan geniş lojistik ağı.</p>
+                    <i class="fas fa-leaf"></i>
+                    <h3>Sürdürülebilirlik</h3>
+                    <p>Çevre dostu hammaddeler, sıfır atık prensibi ve karbon ayak izi azaltma taahhüdü.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== ÜRÜN YELPAZESİ ========== -->
-    <section class="section" id="urunler" style="padding-top: 0;">
+    <!-- ========== FAALİYET ALANLARI ========== -->
+    <section class="section" id="cozumler" style="padding-top: 0;">
         <div class="container">
-            <h2 class="section-title">Ürün Yelpazemiz</h2>
+            <h2 class="section-title">Faaliyet <span>Alanlarımız</span></h2>
             <p class="section-sub">
-                Endüstriyel kumlama, su jeti kesim ve yüzey hazırlığı için en iyi çözümleri sunan geniş ürün gamı.
+                Farklı sektörlere yönelik özelleştirilmiş hammadde ve yüzey işleme teknolojileri.
             </p>
-            <div class="product-grid">
-                <!-- Garnet -->
-                <div class="product-card">
-                    <span class="tag">En Çok Tercih Edilen</span>
-                    <h3><i class="fas fa-gem" style="color: var(--accent); margin-right: 8px;"></i>Garnet</h3>
-                    <p style="color: #475569; font-size: 0.95rem;">Doğal, yüksek sertlikte ve çevre dostu kumlama malzemesi.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Mohs 7.5 – 8.0 Sertlik</li>
-                        <li><i class="fas fa-check"></i> Tozsuz Kullanım</li>
-                        <li><i class="fas fa-check"></i> Tekrar Kullanılabilir</li>
+            <div class="industry-grid">
+                <div class="industry-item">
+                    <i class="fas fa-oil-can"></i>
+                    <h4>Petrol & Rafineri</h4>
+                </div>
+                <div class="industry-item">
+                    <i class="fas fa-plane"></i>
+                    <h4>Havacılık & Türbin</h4>
+                </div>
+                <div class="industry-item">
+                    <i class="fas fa-car"></i>
+                    <h4>Ağır Motor & Otomotiv</h4>
+                </div>
+                <div class="industry-item">
+                    <i class="fas fa-wine-bottle"></i>
+                    <h4>Cam & Seramik</h4>
+                </div>
+            </div>
+
+            <!-- Ürün kartları (Holding havası için) -->
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;">
+                <div style="background: white; padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); border-top: 6px solid var(--accent);">
+                    <h3 style="color: var(--primary); font-weight: 700; font-size: 1.4rem;"><i class="fas fa-gem" style="color: var(--accent); margin-right: 10px;"></i> Garnet Kumu</h3>
+                    <p style="color: #475569; margin: 12px 0;">Yüksek saflıkta, Mohs 8 sertlik. Rafineri boru temizliği ve türbin kanat bakımında tercih edilen endüstriyel standart.</p>
+                    <ul style="list-style: none; margin-top: 12px;">
+                        <li style="padding: 4px 0;"><i class="fas fa-check-circle" style="color: var(--accent);"></i> Tozsuz & Çevre Dostu</li>
+                        <li style="padding: 4px 0;"><i class="fas fa-check-circle" style="color: var(--accent);"></i> Tekrar Kullanılabilir</li>
                     </ul>
                 </div>
-                <!-- Cam Küre -->
-                <div class="product-card">
-                    <span class="tag">Hassas Yüzey</span>
-                    <h3><i class="fas fa-circle" style="color: var(--accent); margin-right: 8px;"></i>Cam Küre</h3>
-                    <p style="color: #475569; font-size: 0.95rem;">Yüzeyleri zarar vermeden temizleyen ve parlatan yuvarlak şekilli küreler.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Pürüzsüz Yüzey Sağlar</li>
-                        <li><i class="fas fa-check"></i> Kimyasal Olarak İnert</li>
-                        <li><i class="fas fa-check"></i> Tozsuz Uygulama</li>
+                <div style="background: white; padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); border-top: 6px solid var(--accent);">
+                    <h3 style="color: var(--primary); font-weight: 700; font-size: 1.4rem;"><i class="fas fa-circle" style="color: var(--accent); margin-right: 10px;"></i> Cam Küre</h3>
+                    <p style="color: #475569; margin: 12px 0;">Hassas yüzey temizliği ve parlatma. Havacılık motor parçaları ve cam kalıplama sektöründe vazgeçilmez.</p>
+                    <ul style="list-style: none; margin-top: 12px;">
+                        <li style="padding: 4px 0;"><i class="fas fa-check-circle" style="color: var(--accent);"></i> Kimyasal Olarak İnert</li>
+                        <li style="padding: 4px 0;"><i class="fas fa-check-circle" style="color: var(--accent);"></i> Mükemmel Yüzey Kalitesi</li>
                     </ul>
                 </div>
-                <!-- Beyaz Alüminyum Oksit -->
-                <div class="product-card">
-                    <span class="tag">Yüksek Saflık</span>
-                    <h3><i class="fas fa-flask" style="color: var(--accent); margin-right: 8px;"></i>Beyaz Alüminyum Oksit</h3>
-                    <p style="color: #475569; font-size: 0.95rem;">Hassas kumlama ve aşındırma işlemleri için yüksek saflıkta malzeme.</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> %99+ Al₂O₃ Saflık</li>
-                        <li><i class="fas fa-check"></i> Çok Sert (Mohs 9)</li>
-                        <li><i class="fas fa-check"></i> Demir İçermez</li>
+                <div style="background: white; padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); border-top: 6px solid var(--accent);">
+                    <h3 style="color: var(--primary); font-weight: 700; font-size: 1.4rem;"><i class="fas fa-bolt" style="color: var(--accent); margin-right: 10px;"></i> Beyaz Alüminyum Oksit</h3>
+                    <p style="color: #475569; margin: 12px 0;">%99 saflık, aşırı sertlik. Ağır sanayi makineleri, türbin ve kompresör yüzey hazırlığında lider çözüm.</p>
+                    <ul style="list-style: none; margin-top: 12px;">
+                        <li style="padding: 4px 0;"><i class="fas fa-check-circle" style="color: var(--accent);"></i> Sertlik Mohs 9</li>
+                        <li style="padding: 4px 0;"><i class="fas fa-check-circle" style="color: var(--accent);"></i> Demir İçermez, Paslanmaz</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ========== İLETİŞİM ========== -->
+    <!-- ========== İLETİŞİM / CTA ========== -->
     <div class="container" id="iletisim">
-        <div class="contact-section">
+        <div class="cta-banner">
             <div>
-                <h2>Endüstriyel Çözümler İçin <br />Bize Ulaşın</h2>
-                <p>Deneyimli ekibimizle ihtiyaçlarınızı analiz edelim ve projenize en uygun çözümü sunalım.</p>
+                <h2>Küresel Çözüm Ortağınız Olalım</h2>
+                <p>Projeleriniz için en uygun hammadde ve teknolojiyi birlikte belirleyelim.</p>
             </div>
-            <div class="contact-info">
-                <div>
-                    <i class="fas fa-map-pin"></i>
-                    <span>İstanbul / Türkiye</span>
-                </div>
+            <div class="cta-contact">
                 <div>
                     <i class="fas fa-phone"></i>
                     <a href="tel:+905511394348">+90 551 139 43 48</a>
@@ -589,6 +712,10 @@
                     <i class="fas fa-envelope"></i>
                     <a href="mailto:info@eurogarnet.com">info@eurogarnet.com</a>
                 </div>
+                <div>
+                    <i class="fas fa-map-pin"></i>
+                    <span>İstanbul / Türkiye</span>
+                </div>
             </div>
         </div>
     </div>
@@ -596,8 +723,27 @@
     <!-- ========== FOOTER ========== -->
     <footer>
         <div class="container">
-            &copy; 2026 <span>EuroGarnet</span> — Endüstriyel Hammaddeler. Tüm hakları saklıdır.
+            <p>&copy; 2026 <span>EuroGarnet</span> — Global Endüstriyel Hammaddeler ve Yüzey Teknolojileri.</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
         </div>
     </footer>
+
+    <!-- ========== BASİT SCROLL EFFECT (Navbar) ========== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const header = document.getElementById("header");
+            window.addEventListener("scroll", function() {
+                if (window.scrollY > 50) {
+                    header.classList.add("scrolled");
+                } else {
+                    header.classList.remove("scrolled");
+                }
+            });
+        });
+    </script>
 </body>
 </html>
