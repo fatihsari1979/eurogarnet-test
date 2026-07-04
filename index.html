@@ -40,7 +40,7 @@
         .btn-nav { background: var(--accent); color: var(--primary) !important; padding: 10px 28px; border-radius: 40px; font-weight: 700; transition: all var(--transition); border: none; cursor: pointer; }
         .btn-nav:hover { background: #dbb95c; transform: scale(1.03); }
 
-        /* HERO SLIDER – SADECE 2 GÖRSEL (RAFİNERİ) */
+        /* HERO SLIDER – OTOMATİK (JavaScript ile oluşturulacak) */
         .hero-slider {
             position: relative;
             width: 100%;
@@ -55,11 +55,9 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: crossfade 18s infinite;
+            animation: crossfade var(--toplamSure) infinite;
         }
-        .slide-img:nth-child(1) { animation-delay: 0s; }
-        .slide-img:nth-child(2) { animation-delay: 9s; }
-
+        /* JavaScript her resme farklı bir gecikme atayacak, bu yüzden keyframes sabit */
         @keyframes crossfade {
             0% { opacity: 0; transform: scale(1.02); }
             8% { opacity: 1; transform: scale(1); }
@@ -111,7 +109,7 @@
         }
         .btn-hero-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-3px); }
 
-        /* Diğer bölümler */
+        /* Diğer bölümler (aynen) */
         .section { padding: 100px 0; }
         .section-title { font-size: 2.8rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
         .section-title span { color: var(--accent); }
@@ -192,12 +190,9 @@
     </div>
 </header>
 
-<!-- HERO SLIDER – SADECE 2 GÖRSEL (.jpeg UZANTILI) -->
-<section class="hero-slider">
-    <!-- ✅ DOSYA YOLLARI .jpeg OLARAK DÜZELTİLDİ -->
-    <img class="slide-img" src="images/IMG_2795.jpeg" alt="Rafineri 1" />
-    <img class="slide-img" src="images/IMG_2796.jpeg" alt="Rafineri 2" />
-
+<!-- HERO SLIDER (JavaScript ile dinamik olarak doldurulacak) -->
+<section class="hero-slider" id="heroSlider">
+    <!-- Slayt görselleri buraya JavaScript ile eklenecek -->
     <div class="hero-overlay"></div>
     <div class="container hero-content">
         <span class="badge"><i class="fas fa-globe"></i> Global Endüstriyel Güç</span>
@@ -282,7 +277,39 @@
     </div>
 </footer>
 
+<!-- ========== JAVASCRIPT OTOMATİK SLAYT ========== -->
 <script>
+    // ----- BURASI SADECE BURASI -----
+    // Bu listeye, images klasöründeki tüm resim dosyalarının isimlerini yazın.
+    // Yeni resim ekledikçe bu listeye virgülle ayırarak ekleyin.
+    const resimListesi = [
+        "IMG_2795.jpeg",
+        "IMG_2796.jpeg"
+        // Örnek: "IMG_2797.jpeg", "yeni_resim.jpg"  ... diye devam eder.
+    ];
+    // --------------------------------
+
+    const slider = document.getElementById('heroSlider');
+    const resimSayisi = resimListesi.length;
+
+    // Her resim için bir <img> oluştur ve slayta ekle
+    resimListesi.forEach((dosyaAdi, index) => {
+        const img = document.createElement('img');
+        img.className = 'slide-img';
+        img.src = 'images/' + dosyaAdi;
+        img.alt = 'Slayt ' + (index + 1);
+        // CSS'deki animasyon süresini ve gecikmeyi ayarla
+        const toplamSure = resimSayisi * 9; // her resim 9 saniye görünsün
+        img.style.setProperty('--toplamSure', toplamSure + 's');
+        // Her resmin başlama gecikmesi: index * 9 saniye
+        img.style.animationDelay = (index * 9) + 's';
+        slider.prepend(img); // overlay'in altında kalması için prepend ile ekle
+    });
+
+    // Koyu katmanın (overlay) en üstte kalmasını sağla (zaten CSS'de z-index:2 var)
+    // Ancak prepend ile eklediğimiz img'ler overlay'in altında kalacak, doğru.
+
+    // Navbar scroll efekti
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) header.classList.add('scrolled');
