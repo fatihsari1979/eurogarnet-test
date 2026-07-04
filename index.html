@@ -40,7 +40,7 @@
         .btn-nav { background: var(--accent); color: var(--primary) !important; padding: 10px 28px; border-radius: 40px; font-weight: 700; transition: all var(--transition); border: none; cursor: pointer; }
         .btn-nav:hover { background: #dbb95c; transform: scale(1.03); }
 
-        /* HERO SLIDER - Görseller artık <img> ile */
+        /* HERO SLIDER – SADECE 2 GÖRSEL */
         .hero-slider {
             position: relative;
             width: 100%;
@@ -55,17 +55,17 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: crossfade 27s infinite;
+            animation: crossfade 18s infinite; /* 2 görsel toplam 18 saniye */
         }
+        /* 1. görsel 0-9 saniye, 2. görsel 9-18 saniye */
         .slide-img:nth-child(1) { animation-delay: 0s; }
         .slide-img:nth-child(2) { animation-delay: 9s; }
-        .slide-img:nth-child(3) { animation-delay: 18s; }
 
         @keyframes crossfade {
             0% { opacity: 0; transform: scale(1.02); }
-            8% { opacity: 1; transform: scale(1); }
-            33% { opacity: 1; transform: scale(1); }
-            41% { opacity: 0; transform: scale(1.02); }
+            8% { opacity: 1; transform: scale(1); }      /* 1.5 saniyede yumuşak geçiş */
+            50% { opacity: 1; transform: scale(1); }      /* 9 saniye boyunca görünür */
+            58% { opacity: 0; transform: scale(1.02); }   /* 1.5 saniyede kaybolur */
             100% { opacity: 0; transform: scale(1.02); }
         }
 
@@ -112,7 +112,7 @@
         }
         .btn-hero-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-3px); }
 
-        /* Diğer bölümler (önceki kodun aynısı) - kısaltmak için tekrar etmiyorum ama aynı */
+        /* Diğer bölümler (aynen kalıyor) */
         .section { padding: 100px 0; }
         .section-title { font-size: 2.8rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
         .section-title span { color: var(--accent); }
@@ -193,12 +193,11 @@
     </div>
 </header>
 
-<!-- HERO SLIDER (GÖRSELLER ARTIK <img> ETİKETİ İLE) -->
+<!-- HERO SLIDER – SADECE 2 GÖRSEL (RAFİNERİ) -->
 <section class="hero-slider">
-    <!-- 3 adet img etiketi - kesin görünür -->
-    <img class="slide-img" src="https://images.unsplash.com/photo-1571554039420-31b5f53d2e78?w=1600&q=80" alt="Rafineri" />
-    <img class="slide-img" src="https://images.unsplash.com/photo-1521662516207-d95a5dee7483?w=1600&q=80" alt="Türbin Motor" />
-    <img class="slide-img" src="https://images.unsplash.com/photo-1581093588401-fbb62a02f120?w=1600&q=80" alt="Cam Kumlama" />
+    <!-- 2 adet resim – kendi yüklediğin IMG_2795 ve IMG_2796 -->
+    <img class="slide-img" src="images/IMG_2795.jpg" alt="Rafineri 1" />
+    <img class="slide-img" src="images/IMG_2796.jpg" alt="Rafineri 2" />
 
     <div class="hero-overlay"></div>
     <div class="container hero-content">
@@ -285,9 +284,11 @@
 </footer>
 
 <script>
-    document.getElementById("header").addEventListener("scroll", function() {
-        if (window.scrollY > 50) this.classList.add("scrolled");
-        else this.classList.remove("scrolled");
+    // Navbar scroll efekti
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
     });
 </script>
 </body>
