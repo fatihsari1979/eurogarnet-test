@@ -37,8 +37,32 @@
         }
         header.scrolled { background: rgba(10, 26, 43, 0.92); backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         .navbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-        .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 12px; }
-        .logo i { color: var(--accent); font-size: 2rem; }
+        
+        /* ----- YENİ LOGO STİLİ (Resim + Metin) ----- */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+        }
+        .logo img {
+            height: 45px;  /* Yüksekliği navbar'a göre ayarladım, istersen değiştirebilirsin */
+            width: auto;
+            display: block;
+        }
+        .logo span {
+            color: var(--white);
+            letter-spacing: -0.5px;
+        }
+        .logo span i {
+            color: var(--accent);
+            margin-right: 4px;
+        }
+        /* ------------------------------------------- */
+
         .nav-links { display: flex; gap: 36px; list-style: none; font-weight: 600; align-items: center; flex-wrap: wrap; }
         .nav-links a { text-decoration: none; color: rgba(255,255,255,0.85); transition: color var(--transition); font-size: 0.9rem; }
         .nav-links a:hover { color: var(--accent); }
@@ -46,7 +70,7 @@
         .btn-nav { background: var(--accent); color: var(--primary) !important; padding: 10px 28px; border-radius: 40px; font-weight: 700; transition: all var(--transition); border: none; cursor: pointer; }
         .btn-nav:hover { background: #dbb95c; transform: scale(1.03); }
 
-        /* SLIDER (Sadece 2 Rafineri Resmi) - Dinamik JS ile */
+        /* SLIDER (Sadece 2 Rafineri Resmi) */
         .hero-slider {
             position: relative;
             width: 100%;
@@ -99,7 +123,6 @@
         .section-title span { color: var(--accent); }
         .section-sub { font-size: 1.1rem; color: #64748b; max-width: 640px; margin-bottom: 56px; }
 
-        /* Ana Kategori Kartları (Nozul, Ekipman, Sarf) */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -135,7 +158,6 @@
             margin-top: 8px;
         }
 
-        /* Ürün Listesi Grid */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -195,7 +217,6 @@
             width: 16px;
         }
 
-        /* İletişim Banner */
         .cta-banner {
             background: var(--primary);
             border-radius: var(--radius);
@@ -221,7 +242,6 @@
         footer .socials a { color: #94a3b8; font-size: 1.2rem; transition: color var(--transition); }
         footer .socials a:hover { color: var(--accent); }
 
-        /* Responsive */
         @media (max-width: 992px) {
             .hero-content h1 { font-size: 3rem; }
             .category-grid { grid-template-columns: 1fr 1fr; }
@@ -237,15 +257,24 @@
             .cta-banner { flex-direction: column; text-align: center; padding: 40px 24px; }
             .cta-contact { justify-content: center; gap: 24px; }
             .section-title { font-size: 2rem; }
+            
+            /* Mobilde logo boyutu */
+            .logo img { height: 35px; }
+            .logo { font-size: 1.2rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ========== HEADER (LOGO EKLENDİ) ========== -->
 <header id="header">
     <div class="container navbar">
-        <div class="logo"><i class="fas fa-gem"></i> EuroGarnet</div>
+        <!-- LOGO: Resim + EuroGarnet Yazısı -->
+        <a href="#anasayfa" class="logo">
+            <img src="images/79df4a9f-7444-4b31-9a14-714d219187ed.jpeg" alt="EuroGarnet Logo" />
+            <span><i class="fas fa-gem"></i> EuroGarnet</span>
+        </a>
+        
         <ul class="nav-links">
             <li><a href="#anasayfa"><i class="fas fa-home"></i> Ana Sayfa</a></li>
             <li><a href="#urunler"><i class="fas fa-boxes"></i> Ürünler</a></li>
