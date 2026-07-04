@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EuroGarnet | Global Endüstriyel Çözümler</title>
+    <title>EuroGarnet | Endüstriyel Sarf & Yedek Parça</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
+        /* ----------------------------------------------
+           RESET & DEĞİŞKENLER
+        ------------------------------------------------ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #0a1a2b;
             --accent: #c9a84c;
             --white: #ffffff;
             --radius: 12px;
-            --transition: 0.4s ease;
+            --transition: 0.3s ease;
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.1);
         }
         body {
             font-family: 'Inter', sans-serif;
             background: #f4f6f9;
             color: #1e293b;
+            line-height: 1.6;
         }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
 
@@ -30,17 +35,18 @@
             padding: 16px 0; transition: background var(--transition);
             background: transparent;
         }
-        header.scrolled { background: rgba(10, 26, 43, 0.92); backdrop-filter: blur(12px); }
+        header.scrolled { background: rgba(10, 26, 43, 0.92); backdrop-filter: blur(12px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
         .navbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); display: flex; align-items: center; gap: 12px; }
         .logo i { color: var(--accent); font-size: 2rem; }
-        .nav-links { display: flex; gap: 36px; list-style: none; font-weight: 600; align-items: center; }
+        .nav-links { display: flex; gap: 36px; list-style: none; font-weight: 600; align-items: center; flex-wrap: wrap; }
         .nav-links a { text-decoration: none; color: rgba(255,255,255,0.85); transition: color var(--transition); font-size: 0.9rem; }
         .nav-links a:hover { color: var(--accent); }
+        .nav-links a i { margin-right: 6px; }
         .btn-nav { background: var(--accent); color: var(--primary) !important; padding: 10px 28px; border-radius: 40px; font-weight: 700; transition: all var(--transition); border: none; cursor: pointer; }
         .btn-nav:hover { background: #dbb95c; transform: scale(1.03); }
 
-        /* HERO SLIDER – OTOMATİK (JavaScript ile oluşturulacak) */
+        /* SLIDER (Sadece 2 Rafineri Resmi) - Dinamik JS ile */
         .hero-slider {
             position: relative;
             width: 100%;
@@ -49,15 +55,14 @@
             overflow: hidden;
         }
         .slide-img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
             opacity: 0;
-            animation: crossfade var(--toplamSure) infinite;
+            animation: crossfade 18s infinite;
         }
-        /* JavaScript her resme farklı bir gecikme atayacak, bu yüzden keyframes sabit */
+        .slide-img:nth-child(1) { animation-delay: 0s; }
+        .slide-img:nth-child(2) { animation-delay: 9s; }
         @keyframes crossfade {
             0% { opacity: 0; transform: scale(1.02); }
             8% { opacity: 1; transform: scale(1); }
@@ -65,7 +70,6 @@
             58% { opacity: 0; transform: scale(1.02); }
             100% { opacity: 0; transform: scale(1.02); }
         }
-
         .hero-overlay {
             position: absolute; inset: 0;
             background: linear-gradient(135deg, rgba(10,26,43,0.75) 0%, rgba(10,26,43,0.25) 100%);
@@ -77,65 +81,132 @@
             display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
             padding-top: 80px; max-width: 750px;
         }
-        .hero-content .badge {
-            display: inline-block; background: var(--accent); color: var(--primary);
-            font-weight: 700; font-size: 0.75rem; letter-spacing: 1.5px;
-            padding: 6px 18px; border-radius: 40px; text-transform: uppercase; margin-bottom: 24px;
-        }
-        .hero-content h1 {
-            font-size: 4.2rem; font-weight: 800; color: var(--white);
-            line-height: 1.1; margin-bottom: 20px; text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
+        .hero-content .badge { display: inline-block; background: var(--accent); color: var(--primary); font-weight: 700; font-size: 0.75rem; letter-spacing: 1.5px; padding: 6px 18px; border-radius: 40px; text-transform: uppercase; margin-bottom: 24px; }
+        .hero-content h1 { font-size: 4.2rem; font-weight: 800; color: var(--white); line-height: 1.1; margin-bottom: 20px; text-shadow: 0 4px 20px rgba(0,0,0,0.2); }
         .hero-content h1 span { color: var(--accent); border-bottom: 4px solid var(--accent); padding-bottom: 4px; }
-        .hero-content p {
-            font-size: 1.25rem; color: rgba(255,255,255,0.85);
-            max-width: 540px; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
+        .hero-content p { font-size: 1.25rem; color: rgba(255,255,255,0.85); max-width: 540px; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-        .btn-hero-primary {
-            background: var(--accent); color: var(--primary);
-            padding: 16px 40px; border-radius: 60px; font-weight: 700;
-            border: none; cursor: pointer; transition: all var(--transition);
-            box-shadow: 0 8px 24px rgba(201,168,76,0.3);
-            text-decoration: none; display: inline-flex; align-items: center; gap: 12px;
-        }
+        .btn-hero-primary { background: var(--accent); color: var(--primary); padding: 16px 40px; border-radius: 60px; font-weight: 700; border: none; cursor: pointer; transition: all var(--transition); box-shadow: 0 8px 24px rgba(201,168,76,0.3); text-decoration: none; display: inline-flex; align-items: center; gap: 12px; }
         .btn-hero-primary:hover { background: #dbb95c; transform: translateY(-3px); }
-        .btn-hero-secondary {
-            background: transparent; color: var(--white);
-            padding: 16px 36px; border-radius: 60px; font-weight: 600;
-            border: 2px solid rgba(255,255,255,0.4); cursor: pointer;
-            transition: all var(--transition); text-decoration: none; display: inline-flex; align-items: center; gap: 12px;
-            backdrop-filter: blur(4px);
-        }
+        .btn-hero-secondary { background: transparent; color: var(--white); padding: 16px 36px; border-radius: 60px; font-weight: 600; border: 2px solid rgba(255,255,255,0.4); cursor: pointer; transition: all var(--transition); text-decoration: none; display: inline-flex; align-items: center; gap: 12px; backdrop-filter: blur(4px); }
         .btn-hero-secondary:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-3px); }
 
-        /* Diğer bölümler (aynen) */
-        .section { padding: 100px 0; }
+        /* ----------------------------------------------
+           ÜRÜN BÖLÜMÜ
+        ------------------------------------------------ */
+        .section { padding: 80px 0; }
         .section-title { font-size: 2.8rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
         .section-title span { color: var(--accent); }
         .section-sub { font-size: 1.1rem; color: #64748b; max-width: 640px; margin-bottom: 56px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-        .card { background: var(--white); padding: 40px 32px; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: all var(--transition); border: 1px solid rgba(0,0,0,0.02); position: relative; overflow: hidden; }
-        .card::after { content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: var(--accent); opacity: 0; transition: opacity var(--transition); }
-        .card:hover::after { opacity: 1; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15); }
-        .card i { font-size: 2.8rem; color: var(--accent); margin-bottom: 20px; }
-        .card h3 { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
-        .card p { color: #475569; font-size: 0.95rem; }
 
-        .industry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
-        .industry-item { background: var(--white); padding: 28px 20px; text-align: center; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.03); border-bottom: 4px solid transparent; transition: all var(--transition); cursor: default; }
-        .industry-item:hover { border-bottom-color: var(--accent); transform: scale(1.02); }
-        .industry-item i { font-size: 2.2rem; color: var(--primary); opacity: 0.7; margin-bottom: 12px; }
-        .industry-item h4 { font-weight: 700; color: var(--primary); font-size: 1rem; }
+        /* Ana Kategori Kartları (Nozul, Ekipman, Sarf) */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+        .category-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+            border-bottom: 6px solid transparent;
+            cursor: default;
+        }
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-bottom-color: var(--accent);
+        }
+        .category-card i {
+            font-size: 3.5rem;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+        .category-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .category-card p {
+            color: #64748b;
+            margin-top: 8px;
+        }
 
-        .product-box { background: white; padding: 32px; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.04); border-top: 6px solid var(--accent); }
-        .product-box h3 { color: var(--primary); font-weight: 700; font-size: 1.4rem; }
-        .product-box ul { list-style: none; margin-top: 12px; }
-        .product-box ul li { padding: 4px 0; }
-        .product-box ul li i { color: var(--accent); margin-right: 8px; }
+        /* Ürün Listesi Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .product-item {
+            background: var(--white);
+            padding: 24px 20px;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-left: 5px solid var(--accent);
+            transition: all var(--transition);
+        }
+        .product-item:hover {
+            transform: translateX(6px);
+            box-shadow: var(--shadow);
+        }
+        .product-item h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .product-item h4 i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        .product-item .tag {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 12px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            margin: 6px 0 10px 0;
+        }
+        .product-item ul {
+            list-style: none;
+            margin-top: 8px;
+        }
+        .product-item ul li {
+            font-size: 0.9rem;
+            padding: 3px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #475569;
+        }
+        .product-item ul li i {
+            color: var(--accent);
+            font-size: 0.7rem;
+            width: 16px;
+        }
 
-        .cta-banner { background: var(--primary); border-radius: var(--radius); padding: 64px 56px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; margin: 40px auto 80px; }
+        /* İletişim Banner */
+        .cta-banner {
+            background: var(--primary);
+            border-radius: var(--radius);
+            padding: 64px 56px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin: 40px auto 80px;
+        }
         .cta-banner h2 { color: var(--white); font-size: 2rem; font-weight: 700; }
         .cta-banner p { color: rgba(255,255,255,0.7); font-size: 1rem; margin-top: 4px; }
         .cta-contact { display: flex; gap: 40px; flex-wrap: wrap; }
@@ -150,28 +221,22 @@
         footer .socials a { color: #94a3b8; font-size: 1.2rem; transition: color var(--transition); }
         footer .socials a:hover { color: var(--accent); }
 
+        /* Responsive */
         @media (max-width: 992px) {
             .hero-content h1 { font-size: 3rem; }
-            .grid-3 { grid-template-columns: 1fr 1fr; }
-            .industry-grid { grid-template-columns: 1fr 1fr; }
+            .category-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
             .navbar { flex-direction: column; gap: 12px; align-items: center; }
-            .nav-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+            .nav-links { justify-content: center; gap: 16px; }
             .hero-content h1 { font-size: 2.4rem; }
             .hero-content { align-items: center; text-align: center; padding-top: 120px; }
             .hero-content p { max-width: 100%; }
             .hero-buttons { justify-content: center; }
-            .grid-3 { grid-template-columns: 1fr; }
-            .industry-grid { grid-template-columns: 1fr 1fr; }
+            .category-grid { grid-template-columns: 1fr; }
             .cta-banner { flex-direction: column; text-align: center; padding: 40px 24px; }
             .cta-contact { justify-content: center; gap: 24px; }
             .section-title { font-size: 2rem; }
-        }
-        @media (max-width: 480px) {
-            .industry-grid { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 1.8rem; }
-            .btn-hero-primary, .btn-hero-secondary { padding: 14px 24px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -182,80 +247,302 @@
     <div class="container navbar">
         <div class="logo"><i class="fas fa-gem"></i> EuroGarnet</div>
         <ul class="nav-links">
-            <li><a href="#kurumsal"><i class="fas fa-building"></i> Kurumsal</a></li>
-            <li><a href="#cozumler"><i class="fas fa-microchip"></i> Çözümler</a></li>
+            <li><a href="#anasayfa"><i class="fas fa-home"></i> Ana Sayfa</a></li>
+            <li><a href="#urunler"><i class="fas fa-boxes"></i> Ürünler</a></li>
+            <li><a href="#kategoriler"><i class="fas fa-th-list"></i> Kategoriler</a></li>
             <li><a href="#iletisim"><i class="fas fa-envelope"></i> İletişim</a></li>
-            <li><a href="#iletisim" class="btn-nav"><i class="fas fa-phone-alt"></i> Teklif Al</a></li>
+            <li><a href="#iletisim" class="btn-nav"><i class="fas fa-phone-alt"></i> Hemen Teklif Al</a></li>
         </ul>
     </div>
 </header>
 
-<!-- HERO SLIDER (JavaScript ile dinamik olarak doldurulacak) -->
-<section class="hero-slider" id="heroSlider">
-    <!-- Slayt görselleri buraya JavaScript ile eklenecek -->
+<!-- HERO SLIDER (RAFİNERİ GÖRSELLERİ) -->
+<section class="hero-slider" id="anasayfa">
+    <img class="slide-img" src="images/IMG_2795.jpeg" alt="Rafineri 1" />
+    <img class="slide-img" src="images/IMG_2796.jpeg" alt="Rafineri 2" />
     <div class="hero-overlay"></div>
     <div class="container hero-content">
-        <span class="badge"><i class="fas fa-globe"></i> Global Endüstriyel Güç</span>
-        <h1>Endüstrinin <br /><span>Geleceğine</span> Yön Veriyoruz</h1>
-        <p>Rafinerilerden havacılığa, ağır makinadan cam teknolojilerine; yüksek kaliteli hammaddeler ve mühendislik çözümleriyle dünya çapında 30'dan fazla ülkede hizmetinizdeyiz.</p>
+        <span class="badge"><i class="fas fa-industry"></i> Endüstriyel Sarf & Yedek Parça</span>
+        <h1>Kumlama Nozulları, <br /><span>Ekipman ve Sarf</span> Malzemeleri</h1>
+        <p>Yüksek kaliteli tungsten karbür nozullar, dayanıklı kumlama ekipmanları ve her türlü sarf malzemesini (Garnet, Alüminyum Oksit, Cam Küre) en uygun fiyatlarla sunuyoruz.</p>
         <div class="hero-buttons">
-            <a href="#iletisim" class="btn-hero-primary"><i class="fas fa-handshake"></i> İş Ortağımız Olun</a>
-            <a href="#cozumler" class="btn-hero-secondary"><i class="fas fa-arrow-right"></i> Çözümleri Keşfet</a>
+            <a href="#urunler" class="btn-hero-primary"><i class="fas fa-search"></i> Ürünleri İncele</a>
+            <a href="#iletisim" class="btn-hero-secondary"><i class="fas fa-handshake"></i> Hemen Teklif Al</a>
         </div>
     </div>
 </section>
 
-<!-- KURUMSAL -->
-<section class="section" id="kurumsal">
+<!-- ========== ÜRÜNLER BÖLÜMÜ ========== -->
+<section class="section" id="urunler">
     <div class="container">
-        <h2 class="section-title">Neden <span>EuroGarnet</span>?</h2>
-        <p class="section-sub">On yılı aşkın küresel deneyimimiz, AR-GE odaklı yaklaşımımız ve sürdürülebilirlik vizyonumuzla sektörün güvenilir çözüm ortağıyız.</p>
-        <div class="grid-3">
-            <div class="card"><i class="fas fa-flask"></i><h3>İleri Teknoloji & AR-GE</h3><p>Yüzey işleme ve kumlama teknolojilerinde sürekli gelişim, uluslararası patentli çözümler.</p></div>
-            <div class="card"><i class="fas fa-handshake"></i><h3>Küresel İş Ortaklığı</h3><p>Fortune 500 şirketleriyle çalışma deneyimi, proje bazlı özel mühendislik desteği.</p></div>
-            <div class="card"><i class="fas fa-leaf"></i><h3>Sürdürülebilirlik</h3><p>Çevre dostu hammaddeler, sıfır atık prensibi ve karbon ayak izi azaltma taahhüdü.</p></div>
+        <h2 class="section-title">Ürün <span>Kategorilerimiz</span></h2>
+        <p class="section-sub">PDF kataloğumuzda yer alan, tedarikini sağladığımız tüm sarf ve yedek parça ürünleri.</p>
+
+        <!-- 3 Ana Kategori -->
+        <div class="category-grid" id="kategoriler">
+            <div class="category-card">
+                <i class="fas fa-microchip"></i>
+                <h3>Kumlama Nozulları</h3>
+                <p>Tungsten Karbür, Standart ve Özel Tipler</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-tools"></i>
+                <h3>Kumlama Ekipmanları</h3>
+                <p>Tabancalar, Enjektörler, Filtreler, Vanalar, Hortumlar, Eldivenler</p>
+            </div>
+            <div class="category-card">
+                <i class="fas fa-flask"></i>
+                <h3>Sarf Malzemeleri</h3>
+                <p>Garnet, Alüminyum Oksit, Cam Küre, Çelik Bilye, Seramik ve daha fazlası</p>
+            </div>
         </div>
+
+        <!-- 1. KATEGORİ: NOZULLAR -->
+        <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 40px; border-bottom: 3px solid var(--accent); padding-bottom: 10px;">
+            <i class="fas fa-microchip" style="color: var(--accent);"></i> Kumlama Nozulları
+        </h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <h4><i class="fas fa-bolt"></i> Tungsten Karbür Nozul</h4>
+                <span class="tag">Standart Tip</span>
+                <ul>
+                    <li><i class="fas fa-check"></i> Yüksek aşınma dayanımı</li>
+                    <li><i class="fas fa-check"></i> Uzun ömürlü kullanım</li>
+                    <li><i class="fas fa-check"></i> 6-32 mm arası açıklık</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-bolt"></i> Tungsten Karbür Nozul</h4>
+                <span class="tag">Özel Tip</span>
+                <ul>
+                    <li><i class="fas fa-check"></i> İhtiyaca özel üretim</li>
+                    <li><i class="fas fa-check"></i> A (Min-Max) 1-28 mm</li>
+                    <li><i class="fas fa-check"></i> C (Min-Max) 1-28 mm</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-bolt"></i> Standart Nozul (ABC)</h4>
+                <span class="tag">65 / 320 Serisi</span>
+                <ul>
+                    <li><i class="fas fa-check"></i> A: 6-32 / B: 3-20</li>
+                    <li><i class="fas fa-check"></i> C: 6-10 / D: 10-32</li>
+                    <li><i class="fas fa-check"></i> Özel ölçüler mevcut</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-bolt"></i> Özel Nozul (ABCDE)</h4>
+                <span class="tag">Ölçüler mm</span>
+                <ul>
+                    <li><i class="fas fa-check"></i> A: 30-320 / B: 5-60</li>
+                    <li><i class="fas fa-check"></i> C: 5-60 / D: 1-50</li>
+                    <li><i class="fas fa-check"></i> E: 1-50</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. KATEGORİ: EKİPMANLAR -->
+        <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 60px; border-bottom: 3px solid var(--accent); padding-bottom: 10px;">
+            <i class="fas fa-tools" style="color: var(--accent);"></i> Kumlama Ekipmanları
+        </h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <h4><i class="fas fa-paint-roller"></i> KT 42 Tabanca</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Alüminyum/Çelik/Paslanmaz</li>
+                    <li><i class="fas fa-check"></i> Kuru / Sulu sistem</li>
+                    <li><i class="fas fa-check"></i> 6-15 Ay kullanım ömrü</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-paint-roller"></i> KT 30 Tabanca</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Çelik / Alüminyum</li>
+                    <li><i class="fas fa-check"></i> Kuru sistem</li>
+                    <li><i class="fas fa-check"></i> 6-12 Ay kullanım ömrü</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-paint-roller"></i> KT - GX Tabanca</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Çelik gövde</li>
+                    <li><i class="fas fa-check"></i> Kuru sistem</li>
+                    <li><i class="fas fa-check"></i> 15-24 Ay kullanım ömrü</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-crosshairs"></i> Enjektör (3 mm)</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Paslanmaz Çelik</li>
+                    <li><i class="fas fa-check"></i> Sulu sistem</li>
+                    <li><i class="fas fa-check"></i> 3-9 Ay kullanım</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-crosshairs"></i> Enjektör (4.2 mm)</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Çelik / Alüminyum</li>
+                    <li><i class="fas fa-check"></i> Kuru sistem</li>
+                    <li><i class="fas fa-check"></i> 3-6 Ay kullanım</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-filter"></i> Filtre Regülatörü</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Yüksek basınç kontrolü</li>
+                    <li><i class="fas fa-check"></i> Güvenli çalışma ortamı</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-water"></i> Susturuculu Uzaktan Kumanda Valfi</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Uzaktan güvenli kontrol</li>
+                    <li><i class="fas fa-check"></i> Kumlama kazanları için</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-plug"></i> Nozul Tutucu + Adaptör</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Kum verici hortum uyumlu</li>
+                    <li><i class="fas fa-check"></i> Hafif ve sağlam</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-tachometer-alt"></i> Kum Ayar Vanası</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Manuel kontrol</li>
+                    <li><i class="fas fa-check"></i> Kum miktarını ayarlar</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-hand-sparkles"></i> ELD 60 cm Eldiven</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Klorlanmış doğal kauçuk</li>
+                    <li><i class="fas fa-check"></i> Sulu kumlamaya uygun</li>
+                    <li><i class="fas fa-check"></i> Flanş: 140-160 mm</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-hand-sparkles"></i> 80 cm Eldiven</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Siyah kauçuk</li>
+                    <li><i class="fas fa-check"></i> Sulu kumlamaya uygun</li>
+                    <li><i class="fas fa-check"></i> Flanş: 160-200 mm</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-mask"></i> Solunum Filtresi</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Kum verici hortum uyumlu</li>
+                    <li><i class="fas fa-check"></i> Hafif ve sağlam</li>
+                    <li><i class="fas fa-check"></i> Uzun ömürlü</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-droplet"></i> Kuru/Sulu Hortum</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Kuru kumlama hortumu</li>
+                    <li><i class="fas fa-check"></i> Sulu kumlama hortumu</li>
+                    <li><i class="fas fa-check"></i> Yüksek dayanım</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-hard-hat"></i> Koruyucu Ekipman</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Suni güderi / Nefes alabilir</li>
+                    <li><i class="fas fa-check"></i> S, M, L, XL, XXL</li>
+                    <li><i class="fas fa-check"></i> Toz ve aşındırıcılara karşı</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. KATEGORİ: SARF MALZEMELERİ -->
+        <h3 style="font-size: 1.8rem; font-weight: 700; color: var(--primary); margin-top: 60px; border-bottom: 3px solid var(--accent); padding-bottom: 10px;">
+            <i class="fas fa-flask" style="color: var(--accent);"></i> Kumlama Sarf Malzemeleri
+        </h3>
+        <div class="product-grid">
+            <div class="product-item">
+                <h4><i class="fas fa-gem"></i> Garnet</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 6 - 7.5 Mohs</li>
+                    <li><i class="fas fa-check"></i> Köşeli tane yapısı</li>
+                    <li><i class="fas fa-check"></i> Özgül ağırlık: 3.5 - 4.3 g/cm³</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-cube"></i> Alüminyum Oksit (Beyaz/Pembe/Kahverengi)</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 9 Mohs</li>
+                    <li><i class="fas fa-check"></i> Köşeli tane yapısı</li>
+                    <li><i class="fas fa-check"></i> Erime noktası: ~2050 °C</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-circle"></i> Cam Küre</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 6 Mohs</li>
+                    <li><i class="fas fa-check"></i> Yuvarlak tane yapısı</li>
+                    <li><i class="fas fa-check"></i> Özgül ağırlık: 2.5 g/cm³</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-bolt"></i> Silisyum Karbür</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 9 - 10 Mohs</li>
+                    <li><i class="fas fa-check"></i> Köşeli tane yapısı</li>
+                    <li><i class="fas fa-check"></i> Erime noktası: ~2300 °C</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-circle"></i> Seramik Bilye</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 7 - 7.5 Mohs</li>
+                    <li><i class="fas fa-check"></i> Yuvarlak tane yapısı</li>
+                    <li><i class="fas fa-check"></i> Özgül ağırlık: 3.8 g/cm³</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-cog"></i> Çelik Bilye / Grit</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 40 - 52 HRC</li>
+                    <li><i class="fas fa-check"></i> Yuvarlak / Köşeli</li>
+                    <li><i class="fas fa-check"></i> Martensitik yapı</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-shield-alt"></i> Paslanmaz Çelik Bilye/Grit</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: ~59 HRC (710 HV)</li>
+                    <li><i class="fas fa-check"></i> Küre / Köşeli</li>
+                    <li><i class="fas fa-check"></i> Özgül ağırlık: 7.0 g/cm³</li>
+                </ul>
+            </div>
+            <div class="product-item">
+                <h4><i class="fas fa-recycle"></i> Plastik Abrasiv</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Sertlik: 3.5 - 4.0 Mohs</li>
+                    <li><i class="fas fa-check"></i> Köşeli tane yapısı</li>
+                    <li><i class="fas fa-check"></i> Özgül ağırlık: 1.5 g/cm³</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PDF İndirme Butonu -->
+        <div style="text-align: center; margin-top: 60px;">
+            <a href="Saykar_Katalog.pdf" target="_blank" style="display: inline-block; background: var(--primary); color: white; padding: 18px 48px; border-radius: 60px; font-weight: 700; text-decoration: none; font-size: 1.1rem; transition: all var(--transition); border: 2px solid var(--primary);">
+                <i class="fas fa-file-pdf" style="color: var(--accent); margin-right: 12px;"></i> PDF Kataloğu İndir (Detaylı Teknik Veriler)
+            </a>
+            <p style="margin-top: 12px; color: #64748b; font-size: 0.9rem;">Teknik ölçüler, tablolar ve alternatif ürünler için kataloğu inceleyin.</p>
+        </div>
+
     </div>
 </section>
 
-<!-- ÇÖZÜMLER -->
-<section class="section" id="cozumler" style="padding-top: 0;">
-    <div class="container">
-        <h2 class="section-title">Faaliyet <span>Alanlarımız</span></h2>
-        <p class="section-sub">Farklı sektörlere yönelik özelleştirilmiş hammadde ve yüzey işleme teknolojileri.</p>
-        <div class="industry-grid">
-            <div class="industry-item"><i class="fas fa-oil-can"></i><h4>Petrol & Rafineri</h4></div>
-            <div class="industry-item"><i class="fas fa-plane"></i><h4>Havacılık & Türbin</h4></div>
-            <div class="industry-item"><i class="fas fa-car"></i><h4>Ağır Motor & Otomotiv</h4></div>
-            <div class="industry-item"><i class="fas fa-wine-bottle"></i><h4>Cam & Seramik</h4></div>
-        </div>
-
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px;">
-            <div class="product-box">
-                <h3><i class="fas fa-gem" style="color: var(--accent); margin-right: 10px;"></i> Garnet Kumu</h3>
-                <p style="color: #475569; margin: 12px 0;">Yüksek saflıkta, Mohs 8 sertlik. Rafineri boru temizliği ve türbin kanat bakımında tercih edilen endüstriyel standart.</p>
-                <ul><li><i class="fas fa-check-circle"></i> Tozsuz & Çevre Dostu</li><li><i class="fas fa-check-circle"></i> Tekrar Kullanılabilir</li></ul>
-            </div>
-            <div class="product-box">
-                <h3><i class="fas fa-circle" style="color: var(--accent); margin-right: 10px;"></i> Cam Küre</h3>
-                <p style="color: #475569; margin: 12px 0;">Hassas yüzey temizliği ve parlatma. Havacılık motor parçaları ve cam kalıplama sektöründe vazgeçilmez.</p>
-                <ul><li><i class="fas fa-check-circle"></i> Kimyasal Olarak İnert</li><li><i class="fas fa-check-circle"></i> Mükemmel Yüzey Kalitesi</li></ul>
-            </div>
-            <div class="product-box">
-                <h3><i class="fas fa-bolt" style="color: var(--accent); margin-right: 10px;"></i> Beyaz Alüminyum Oksit</h3>
-                <p style="color: #475569; margin: 12px 0;">%99 saflık, aşırı sertlik. Ağır sanayi makineleri, türbin ve kompresör yüzey hazırlığında lider çözüm.</p>
-                <ul><li><i class="fas fa-check-circle"></i> Sertlik Mohs 9</li><li><i class="fas fa-check-circle"></i> Demir İçermez, Paslanmaz</li></ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- İLETİŞİM -->
+<!-- ========== İLETİŞİM ========== -->
 <div class="container" id="iletisim">
     <div class="cta-banner">
         <div>
-            <h2>Küresel Çözüm Ortağınız Olalım</h2>
-            <p>Projeleriniz için en uygun hammadde ve teknolojiyi birlikte belirleyelim.</p>
+            <h2>Ürünlerimiz Hakkında Teklif Alın</h2>
+            <p>Nozul, ekipman veya sarf malzemesi ihtiyaçlarınız için bize ulaşın.</p>
         </div>
         <div class="cta-contact">
             <div><i class="fas fa-phone"></i><a href="tel:+905511394348">+90 551 139 43 48</a></div>
@@ -268,7 +555,8 @@
 <!-- FOOTER -->
 <footer>
     <div class="container">
-        <p>&copy; 2026 <span>EuroGarnet</span> — Global Endüstriyel Hammaddeler ve Yüzey Teknolojileri.</p>
+        <p>&copy; 2026 <span>EuroGarnet</span> — Endüstriyel Sarf, Nozul ve Ekipman Tedarikçisi.</p>
+        <p style="font-size: 0.8rem; color: #94a3b8; margin-top: 4px;"><i class="fas fa-exclamation-circle"></i> Makine satışımız bulunmamaktadır. Sadece sarf ve yedek parça tedariki yapılmaktadır.</p>
         <div class="socials">
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -277,39 +565,8 @@
     </div>
 </footer>
 
-<!-- ========== JAVASCRIPT OTOMATİK SLAYT ========== -->
 <script>
-    // ----- BURASI SADECE BURASI -----
-    // Bu listeye, images klasöründeki tüm resim dosyalarının isimlerini yazın.
-    // Yeni resim ekledikçe bu listeye virgülle ayırarak ekleyin.
-    const resimListesi = [
-        "IMG_2795.jpeg",
-        "IMG_2796.jpeg"
-        // Örnek: "IMG_2797.jpeg", "yeni_resim.jpg"  ... diye devam eder.
-    ];
-    // --------------------------------
-
-    const slider = document.getElementById('heroSlider');
-    const resimSayisi = resimListesi.length;
-
-    // Her resim için bir <img> oluştur ve slayta ekle
-    resimListesi.forEach((dosyaAdi, index) => {
-        const img = document.createElement('img');
-        img.className = 'slide-img';
-        img.src = 'images/' + dosyaAdi;
-        img.alt = 'Slayt ' + (index + 1);
-        // CSS'deki animasyon süresini ve gecikmeyi ayarla
-        const toplamSure = resimSayisi * 9; // her resim 9 saniye görünsün
-        img.style.setProperty('--toplamSure', toplamSure + 's');
-        // Her resmin başlama gecikmesi: index * 9 saniye
-        img.style.animationDelay = (index * 9) + 's';
-        slider.prepend(img); // overlay'in altında kalması için prepend ile ekle
-    });
-
-    // Koyu katmanın (overlay) en üstte kalmasını sağla (zaten CSS'de z-index:2 var)
-    // Ancak prepend ile eklediğimiz img'ler overlay'in altında kalacak, doğru.
-
-    // Navbar scroll efekti
+    // Header Scroll Efekti
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) header.classList.add('scrolled');
